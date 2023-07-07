@@ -1,0 +1,6 @@
+{
+  "ConnectionStrings":
+  {
+    "InvoicingSystem": "Data Source=LAPTOP-Q41M8E8L\\SQLEXPRESS;Initial Catalog=InvoicingSystem;Integrated Security=True"
+  }
+}
