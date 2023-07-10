@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Invoicing_System.DBConnector
 {
-    internal class DBConnector
+    public class DBConnector
     {
         public static SqlConnection GetConnection()
         {

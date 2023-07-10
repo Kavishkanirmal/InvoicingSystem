@@ -1,0 +1,5 @@
+  //   _connection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["config.json"].ConnectionString);
+
+            _connection = DBConnector.DBConnector.GetConnection();
+
+           // _connection = new SqlConnection("Data Source=LAPTOP-Q41M8E8L\\SQLEXPRESS;Initial Catalog=InvoicingSystem;Integrated Security=True");

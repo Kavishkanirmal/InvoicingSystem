@@ -11,41 +11,75 @@ using Microsoft.Extensions.Configuration;
 
 namespace Invoicing_System.Controllers
 {
-    internal class ProductController
+    public class ProductController
     {
+
         private readonly SqlConnection _connection;
 
         public ProductController() 
         {
-         //   _connection = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["config.json"].ConnectionString);
-
             _connection = DBConnector.DBConnector.GetConnection();
-
-           // _connection = new SqlConnection("Data Source=LAPTOP-Q41M8E8L\\SQLEXPRESS;Initial Catalog=InvoicingSystem;Integrated Security=True");
         }
 
+        //Add a new product to the database
         public bool AddProduct(Product product)
         {
             var query = "INSERT INTO product (productID, productName, productDescription, purchasePrice, sellingPrice, quantity) VALUES (@productID, @productName, @productDescription, @purchasePrice, @sellingPrice, @quantity)";
             _connection.Open();
             var cmd = new SqlCommand(query, _connection);
-            cmd.Parameters.AddWithValue("productID", product.GetProductID());
-            cmd.Parameters.AddWithValue("productName", product.GetProductName());
-            cmd.Parameters.AddWithValue("productDescription", product.GetProductDescription());
-            cmd.Parameters.AddWithValue("purchasePrice", product.GetPurchasePrice());
-            cmd.Parameters.AddWithValue("sellingPrice", product.GetSellingPrice());
-            cmd.Parameters.AddWithValue("quantity", product.GetQuantity());
+            cmd.Parameters.AddWithValue("ProductId", product.ProductId);
+            cmd.Parameters.AddWithValue("ProductName", product.ProductName);
+            cmd.Parameters.AddWithValue("ProductDescription", product.ProductDescription);
+            cmd.Parameters.AddWithValue("PurchasePrice", product.PurchasePrice);
+            cmd.Parameters.AddWithValue("SellingPrice", product.SellingPrice);
+            cmd.Parameters.AddWithValue("Quantity", product.Quantity);
 
             var result = cmd.ExecuteNonQuery() > 0;
             _connection.Close();
             return result;
         }
 
-       /*public List<ProductController> GetProducts()
+        //List a specific product's details
+        public Product GetProduct(string id)
+        {
+            var query = "SELECT * FROM product WHERE productID = @id";
+            _connection.Open();
+            var cmd = new SqlCommand(query, _connection);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            var adapter = new SqlDataAdapter(cmd);
+            var dt = new DataTable();
+            adapter.Fill(dt);
+
+            if (dt.Rows.Count == 0)
+            {
+                _connection.Close();
+                return null; // No product found
+            }
+
+            var row = dt.Rows[0];
+            var product = new Product()
+            { 
+                ProductId = Convert.ToString(row["productID"]),
+                ProductName = Convert.ToString(row["productName"]),
+                ProductDescription = Convert.ToString(row["productDescription"]),
+                PurchasePrice = (float)Convert.ToDouble(row["purchasePrice"]),
+                SellingPrice = (float)Convert.ToDouble(row["sellingPrice"]),
+                Quantity = Convert.ToInt32(row["quantity"])
+                
+            };
+
+            _connection.Close();
+            return product;
+        }
+
+        //List all product details
+        public List<Product> GetProducts()
         {
             var query = "SELECT * FROM product";
             _connection.Open();
             var cmd = new SqlCommand(query, _connection);
+
             var adapter = new SqlDataAdapter(cmd);
             var dt = new DataTable();
             adapter.Fill(dt);
@@ -54,16 +88,48 @@ namespace Invoicing_System.Controllers
             {
                 products.Add(new Product()
                 {
-                    ID = Convert.ToString(row["ID"]),
-                    Name = Convert.ToString(row["Name"]),
-                    Description = Convert.ToString(row["Description"]),
-                    PurchasePrice = Convert.ToDouble(row["PurchasePrice"]),
-                    SellingPrice = Convert.ToDouble(row["SellingPrice"]),
-                    Quantity = Convert.ToInt32(row["Quantity"])
+                    ProductId = Convert.ToString(row["productID"]),
+                    ProductName = Convert.ToString(row["productName"]),
+                    ProductDescription = Convert.ToString(row["productDescription"]),
+                    PurchasePrice = (float)Convert.ToDouble(row["purchasePrice"]),
+                    SellingPrice = (float)Convert.ToDouble(row["sellingPrice"]),
+                    Quantity = Convert.ToInt32(row["quantity"])
                 });
             }
+            _connection.Close();
             return products;
-        }*/
+        }
+
+        //Remove products
+        public bool RemoveProduct(string productId)
+        {
+            var query = "DELETE FROM product WHERE productID = @productId";
+            _connection.Open();
+            var cmd = new SqlCommand(query, _connection);
+            cmd.Parameters.AddWithValue("@productId", productId);
+
+            var result = cmd.ExecuteNonQuery() > 0;
+            _connection.Close();
+            return result;
+        }
+
+        // Update a product
+        public bool UpdateProduct(Product product)
+        {
+            var query = "UPDATE product SET productName = @productName, productDescription = @productDescription, purchasePrice = @purchasePrice, sellingPrice = @sellingPrice, quantity = @quantity WHERE productID = @productId";
+            _connection.Open();
+            var cmd = new SqlCommand(query, _connection);
+            cmd.Parameters.AddWithValue("@productName", product.ProductName);
+            cmd.Parameters.AddWithValue("@productDescription", product.ProductDescription);
+            cmd.Parameters.AddWithValue("@purchasePrice", product.PurchasePrice);
+            cmd.Parameters.AddWithValue("@sellingPrice", product.SellingPrice);
+            cmd.Parameters.AddWithValue("@quantity", product.Quantity);
+            cmd.Parameters.AddWithValue("@productId", product.ProductId);
+
+            var result = cmd.ExecuteNonQuery() > 0;
+            _connection.Close();
+            return result;
+        }
 
     }
 }
