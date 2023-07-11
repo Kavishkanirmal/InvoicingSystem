@@ -40,7 +40,7 @@ namespace Invoicing_System.Controllers
         }
 
         //List a specific product's details
-        public Product GetProduct(string id)
+        public Product? GetProduct(string id)
         {
             var query = "SELECT * FROM product WHERE productID = @id";
             _connection.Open();

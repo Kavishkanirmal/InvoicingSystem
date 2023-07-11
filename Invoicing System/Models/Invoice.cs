@@ -11,7 +11,7 @@ namespace Invoicing_System.Models
 
         /*----- Properties -----*/
         public int InvoiceNumber{ get; set; }
-        public string? InvoiceDate { get; set; } 
+        public DateOnly InvoiceDate { get; set; } 
         public string? CustomerName { get; set; } 
         public string? ProductNames { get; set; }
         public int UnitsPerProduct { get; set; }

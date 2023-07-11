@@ -68,7 +68,7 @@ namespace Invoicing_System.Controllers
         }
 
         //List a specific customer's details
-        public Customer GetCustomer(string id)
+        public Customer? GetCustomer(string id)
         {
             var query = "SELECT * FROM customer WHERE customerId = @id";
             _connection.Open();
