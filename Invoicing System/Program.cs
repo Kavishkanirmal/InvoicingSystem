@@ -44,25 +44,36 @@ namespace Invoicing_System
                         var productController = new ProductController();
                         var product = new Product();
 
-                        Console.WriteLine("Enter the Product ID: ");
+                        Console.Write("Enter the Product ID: ");
                         product.ProductId = Console.ReadLine();
 
-                        Console.WriteLine("Enter the Product Name: ");
+                        Console.Write("Enter the Product Name: ");
                         product.ProductName = Console.ReadLine();
 
-                        Console.WriteLine("Enter the Product Description: ");
+                        Console.Write("Enter the Product Description: ");
                         product.ProductDescription = Console.ReadLine();
 
-                        Console.WriteLine("Enter the Purchase Price: ");
+                        Console.Write("Enter the Purchase Price: ");
                         product.PurchasePrice = (float)Convert.ToDecimal(Console.ReadLine());
 
-                        Console.WriteLine("Enter the Selling Price: ");
+                        Console.Write("Enter the Selling Price: ");
                         product.SellingPrice = (float)Convert.ToDecimal(Console.ReadLine());
 
-                        Console.WriteLine("Enter the Quantity: ");
+                        Console.Write("Enter the Quantity: ");
                         product.Quantity = Convert.ToInt32(Console.ReadLine());
 
                         productController.AddProduct(product);
+
+
+                        /*----- Record the adding date -----*/
+                        var productAddAndUpdateDataController = new ProductAddAndUpdateDataController();
+                        var productAddAndUpdateData = new ProductAddAndUpdateData();
+
+                        productAddAndUpdateData.Date = DateOnly.FromDateTime(DateTime.Now);
+                        productAddAndUpdateData.Operation = "Added";
+                        productAddAndUpdateData.ProductID = product.ProductId;                                           
+
+                        productAddAndUpdateDataController.AddProductData(productAddAndUpdateData);
 
                     }
                     else if (pService == 2)
@@ -70,7 +81,7 @@ namespace Invoicing_System
 
                         //List a specific product's details
                         var productController = new ProductController();
-                        Console.WriteLine("Enter the product ID: ");
+                        Console.Write("Enter the product ID: ");
                         string? productId = Console.ReadLine();
 
                         if (!string.IsNullOrEmpty(productId))
@@ -124,7 +135,7 @@ namespace Invoicing_System
                         //Remove product
                         var productController = new ProductController();
 
-                        Console.WriteLine("Enter the product ID: ");
+                        Console.Write("Enter the product ID: ");
                         string? productId = Console.ReadLine();
                         if (!string.IsNullOrEmpty(productId))
                         {
@@ -143,25 +154,35 @@ namespace Invoicing_System
                         var productController = new ProductController();
                         var updateProduct = new Product();
 
-                        Console.WriteLine("Enter the product ID: ");
+                        Console.Write("Enter the product ID: ");
                         updateProduct.ProductId = Console.ReadLine();
 
-                        Console.WriteLine("Enter the product name: ");
+                        Console.Write("Enter the product name: ");
                         updateProduct.ProductName = Console.ReadLine();
 
-                        Console.WriteLine("Enter the product description: ");
+                        Console.Write("Enter the product description: ");
                         updateProduct.ProductDescription = Console.ReadLine();
 
-                        Console.WriteLine("Enter the purchase price: ");
+                        Console.Write("Enter the purchase price: ");
                         updateProduct.PurchasePrice = (float)Convert.ToDecimal(Console.ReadLine());
 
-                        Console.WriteLine("Enter the selling price: ");
+                        Console.Write("Enter the selling price: ");
                         updateProduct.SellingPrice = (float)Convert.ToDecimal(Console.ReadLine());
 
-                        Console.WriteLine("Enter the quantity: ");
+                        Console.Write("Enter the quantity: ");
                         updateProduct.Quantity = Convert.ToInt32(Console.ReadLine());
 
                         productController.UpdateProduct(updateProduct);
+
+                        /*----- Record the updating date -----*/
+                        var productAddAndUpdateDataController = new ProductAddAndUpdateDataController();
+                        var productAddAndUpdateData = new ProductAddAndUpdateData();
+
+                        productAddAndUpdateData.Date = DateOnly.FromDateTime(DateTime.Now);
+                        productAddAndUpdateData.Operation = "Updated";
+                        productAddAndUpdateData.ProductID = updateProduct.ProductId;
+
+                        productAddAndUpdateDataController.AddProductData(productAddAndUpdateData);
 
                     }
 
@@ -186,28 +207,38 @@ namespace Invoicing_System
                         var customerController = new CustomerController();
                         var customer = new Customer();
 
-                        Console.WriteLine("Enter Customer ID: ");
+                        Console.Write("Enter Customer ID: ");
                         customer.CustomerId = Console.ReadLine();
 
-                        Console.WriteLine("Enter Customer Name: ");
+                        Console.Write("Enter Customer Name: ");
                         customer.CustomerName = Console.ReadLine();
 
-                        Console.WriteLine("Enter Email: ");
+                        Console.Write("Enter Email: ");
                         customer.Email = Console.ReadLine();
 
-                        Console.WriteLine("Enter Address: ");
+                        Console.Write("Enter Address: ");
                         customer.Address = Console.ReadLine();
 
-                        Console.WriteLine("Enter Contact No: ");
+                        Console.Write("Enter Contact No: ");
                         customer.ContactNo = Console.ReadLine();
 
-                        Console.WriteLine("Enter Date of Birth (MM-DD-YYYY): ");
+                        Console.Write("Enter Date of Birth (MM-DD-YYYY): ");
                         customer.DateOfBirth = Console.ReadLine();
 
-                        Console.WriteLine("Enter Gender: ");
+                        Console.Write("Enter Gender: ");
                         customer.Gender = Console.ReadLine();
 
                         customerController.AddCustomer(customer);
+
+                        /*----- Record the adding date -----*/
+                        var customerAddAndUpdateDataController = new CustomerAddAndUpdateDataController();
+                        var customerAddAndUpdateData = new CustomerAddAndUpdateData();
+
+                        customerAddAndUpdateData.Date = DateOnly.FromDateTime(DateTime.Now);
+                        customerAddAndUpdateData.Operation = "Added";
+                        customerAddAndUpdateData.CustomerID = customer.CustomerId;
+
+                        customerAddAndUpdateDataController.AddCustomerData(customerAddAndUpdateData);
 
                     }
                     else if (cService == 2)
@@ -215,7 +246,7 @@ namespace Invoicing_System
 
                         //List specific customer's details
                         var customerController = new CustomerController();
-                        Console.WriteLine("Enter the customer ID ");
+                        Console.Write("Enter the customer ID: ");
                         string? customerId = Console.ReadLine();
 
                         if (!string.IsNullOrEmpty(customerId))
@@ -290,28 +321,38 @@ namespace Invoicing_System
                         var customerController = new CustomerController();
                         var updateCustomer = new Customer();
 
-                        Console.WriteLine("Enter Customer ID: ");
+                        Console.Write("Enter Customer ID: ");
                         updateCustomer.CustomerId = Console.ReadLine();
 
-                        Console.WriteLine("Enter Customer Name: ");
+                        Console.Write("Enter Customer Name: ");
                         updateCustomer.CustomerName = Console.ReadLine();
 
-                        Console.WriteLine("Enter Email: ");
+                        Console.Write("Enter Email: ");
                         updateCustomer.Email = Console.ReadLine();
 
-                        Console.WriteLine("Enter Address: ");
+                        Console.Write("Enter Address: ");
                         updateCustomer.Address = Console.ReadLine();
 
-                        Console.WriteLine("Enter Contact No: ");
+                        Console.Write("Enter Contact No: ");
                         updateCustomer.ContactNo = Console.ReadLine();
 
-                        Console.WriteLine("Enter Date of Birth: ");
+                        Console.Write("Enter Date of Birth: ");
                         updateCustomer.DateOfBirth = Console.ReadLine();
 
-                        Console.WriteLine("Enter Gender: ");
+                        Console.Write("Enter Gender: ");
                         updateCustomer.Gender = Console.ReadLine();
 
                         customerController.UpdateCustomer(updateCustomer);
+
+                        /*----- Record the updating date -----*/
+                        var customerAddAndUpdateDataController = new CustomerAddAndUpdateDataController();
+                        var customerAddAndUpdateData = new CustomerAddAndUpdateData();
+
+                        customerAddAndUpdateData.Date = DateOnly.FromDateTime(DateTime.Now);
+                        customerAddAndUpdateData.Operation = "Updated";
+                        customerAddAndUpdateData.CustomerID = updateCustomer.CustomerId;
+
+                        customerAddAndUpdateDataController.AddCustomerData(customerAddAndUpdateData);
 
                     }
 
@@ -321,6 +362,7 @@ namespace Invoicing_System
                     /*----- Menu for the Invoices ------*/
                     Console.WriteLine(" 1. Generate an invoice");
                     Console.WriteLine(" 2. Search for invoices by date & customer");
+                    Console.Write(" Which service do you want: ");
                     string? iServiceInput = Console.ReadLine();
                     int.TryParse(iServiceInput, out int iService);
                     Console.WriteLine();
@@ -329,7 +371,7 @@ namespace Invoicing_System
                     {
 
                         var productController = new ProductController();
-                        Console.WriteLine("Enter the corresponding product ID: ");
+                        Console.Write("Enter the corresponding product ID: ");
                         string? productId = Console.ReadLine();
 
                         if (!string.IsNullOrEmpty(productId))
@@ -339,7 +381,7 @@ namespace Invoicing_System
 
                             if (product != null)
                             {
-                                Console.WriteLine("Enter the required quantity: ");
+                                Console.Write("Enter the required quantity: ");
                                 string? qtyInput = Console.ReadLine();
                                 int.TryParse(qtyInput, out int qty);
 
@@ -350,10 +392,10 @@ namespace Invoicing_System
                                     var invoiceController = new InvoiceController();
                                     var invoice = new Invoice();
 
-                                    Console.WriteLine("Enter the invoice number: ");
+                                    Console.Write("Enter the invoice number: ");
                                     invoice.InvoiceNumber = int.Parse(Console.ReadLine());
 
-                                    Console.WriteLine("Enter the invoice date (YYYY-MM-DD): ");
+                                    Console.Write("Enter the invoice date (YYYY-MM-DD): ");
                                     string? invoiceDateInput = Console.ReadLine();
 
                                     if (DateTime.TryParse(invoiceDateInput, out DateTime invoiceDate))
@@ -365,29 +407,39 @@ namespace Invoicing_System
                                         Console.WriteLine("Invalid invoice date format!");
                                     }
 
-                                    Console.WriteLine("Enter the customer name: ");
+                                    Console.Write("Enter the customer name: ");
                                     invoice.CustomerName = Console.ReadLine();
 
-                                    Console.WriteLine("Enter the product names: ");
+                                    Console.Write("Enter the product names: ");
                                     invoice.ProductNames = Console.ReadLine();
 
-                                    Console.WriteLine("Enter the units per product: ");
+                                    Console.Write("Enter the units per product: ");
                                     invoice.UnitsPerProduct = int.Parse(Console.ReadLine());
 
-                                    Console.WriteLine("Enter the unit price per product: ");
+                                    Console.Write("Enter the unit price per product: ");
                                     invoice.UnitPricePerProduct = decimal.Parse(Console.ReadLine());
 
-                                    Console.WriteLine("Enter the total price per product: ");
+                                    Console.Write("Enter the total price per product: ");
                                     invoice.TotalPricePerProduct = decimal.Parse(Console.ReadLine());
 
-                                    Console.WriteLine("Enter the discount per product: ");
+                                    Console.Write("Enter the discount per product: ");
                                     invoice.DiscountPerProduct = decimal.Parse(Console.ReadLine());
 
                                     invoiceController.AddInvoice(invoice);
 
+                                    /*----- Record the invoice adding date -----*/
+                                    var invoiceAddAndUpdateDataController = new InvoiceAddAndUpdateDataController();
+                                    var invoiceAddAndUpdateData = new InvoiceAddAndUpdateData();
+
+                                    invoiceAddAndUpdateData.Date = DateOnly.FromDateTime(DateTime.Now);
+                                    invoiceAddAndUpdateData.Operation = "Added";
+                                    invoiceAddAndUpdateData.InvoiceNumber = invoice.InvoiceNumber;
+
+                                    invoiceAddAndUpdateDataController.AddInvoiceData(invoiceAddAndUpdateData);
+
+
                                     /*----- Update the product quantity -----*/
                                     var updateProduct = new Product();
-
 
                                     updateProduct.ProductId = product.ProductId;
                                     updateProduct.ProductName = product.ProductName;
@@ -398,6 +450,18 @@ namespace Invoicing_System
                                     int existingQty = product.Quantity;
                                     updateProduct.Quantity = existingQty - qty;
                                     productController.UpdateProduct(updateProduct);
+
+
+                                    /*----- Record the product updating date -----*/
+                                    var productAddAndUpdateDataController = new ProductAddAndUpdateDataController();
+                                    var productAddAndUpdateData = new ProductAddAndUpdateData();
+
+                                    productAddAndUpdateData.Date = DateOnly.FromDateTime(DateTime.Now);
+                                    productAddAndUpdateData.Operation = "Updated";
+                                    productAddAndUpdateData.ProductID = updateProduct.ProductId;
+
+                                    productAddAndUpdateDataController.AddProductData(productAddAndUpdateData);
+                          
 
                                     //List a specific invoice's details
                                     var listInvoice = invoiceController.GetInvoice(invoice.InvoiceNumber);
@@ -465,9 +529,91 @@ namespace Invoicing_System
 
 
                 }//Main menu if condition (Invoice)
-              //  elseif(){
+                else if(service == 4){
 
-               // }//Main menu if condition (Admin Tasks)
+                    //Get admin details
+                    var adminController = new AdminController();
+                    Console.Write("Enter the admin username: ");
+                    string? dBUsername = Console.ReadLine();
+                    Console.Write("Enter the admin password: ");
+                    string? dBPassword = Console.ReadLine();
+
+                    if (!string.IsNullOrEmpty(dBUsername) && !string.IsNullOrEmpty(dBPassword))
+                    {
+                        var admin = adminController.GetAdmin(dBUsername, dBPassword);
+
+                        if (admin != null)
+                        {
+                            if (admin.Username == dBUsername && admin.Password == dBPassword)
+                            {
+                                Console.WriteLine("1. View Invoice added and updated dates");
+                                Console.WriteLine("2. View Product added and updated dates");
+                                Console.WriteLine("3. View Customer added and updated dates");
+                                Console.Write(" Enter the service you want: ");
+                                string? adminServiceInput = Console.ReadLine();
+                                int.TryParse(adminServiceInput, out int adminService);
+                                Console.WriteLine();
+
+                                if (adminService == 1)
+                                {
+                                    //List all Invoice add and update details
+                                    var invoiceAddAndUpdateDataController = new InvoiceAddAndUpdateDataController();
+                                    var invoices = invoiceAddAndUpdateDataController.GetInvoiceAddAndUpdateData();
+
+                                    foreach (var i in invoices)
+                                    {
+                                        Console.WriteLine($"ID: {i.Id}");
+                                        Console.WriteLine($"Date: {i.Date}");
+                                        Console.WriteLine($"Operation: {i.Operation}");
+                                        Console.WriteLine($"Invoice Number: {i.InvoiceNumber}");
+                                        Console.WriteLine();
+                                    }
+                                }
+                                else if (adminService == 2)
+                                {
+                                    //List all Product add and update details
+                                    var productAddAndUpdateDataController = new ProductAddAndUpdateDataController();
+                                    var products = productAddAndUpdateDataController.GetProductAddAndUpdateData();
+
+                                    foreach (var p in products)
+                                    {
+                                        Console.WriteLine($"ID: {p.Id}");
+                                        Console.WriteLine($"Date: {p.Date}");
+                                        Console.WriteLine($"Operation: {p.Operation}");
+                                        Console.WriteLine($"product ID: {p.ProductID}");
+                                        Console.WriteLine();
+                                    }
+                                }
+                                else if (adminService == 3)
+                                {
+                                    //List all Customer add and update details
+                                    var customerAddAndUpdateDataController = new CustomerAddAndUpdateDataController();
+                                    var customers = customerAddAndUpdateDataController.GetCustomerAddAndUpdateData();
+
+                                    foreach (var c in customers)
+                                    {
+                                        Console.WriteLine($"ID: {c.Id}");
+                                        Console.WriteLine($"Date: {c.Date}");
+                                        Console.WriteLine($"Operation: {c.Operation}");
+                                        Console.WriteLine($"product ID: {c.CustomerID}");
+                                        Console.WriteLine();
+                                    }
+                                }                                                            
+
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Incorrect admin credentials!");
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter a valid customer ID");
+                    }
+
+                }//Main menu if condition (Admin Tasks)
                 else if (service == 5)
                 {
                     exitFalg = true;
